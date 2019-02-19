@@ -1,7 +1,11 @@
 # phpSocial Plugin Enhancer
 The Plugin Enhancer for [phpSocial – Social Network Platform](http://bit.ly/2Na83bV) allows you to easily reorder, install, delete and manage your phpDolphin plugins. Plugin Enhancer allows you to install plugins from a zip, to completely delete plugins, to reorder how the plugins information is shown and also to see more information about your plugins.
 
-# [1. Installation](https://github.com/gentlemandesigns/phpSocial-Plugin-Enhancer/wiki/Installation)
+# 1. Installation
+1. Clone the repository
+2. Copy to your website `plugins` folder the folder `plugins` from the clone.
+3. Activate on your admin panel.
+
 # 2. Features
 ## Plugin Installation
 To install a plugin just ZIP the folder of the desired plugin to install. In the available file upload field, select your ZIP archive file and press install. If the plugin meet the default phpDolphin plugin requirements, it will be installed with success.
