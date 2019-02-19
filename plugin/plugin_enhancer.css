@@ -1,0 +1,17 @@
+.button-alert a, 
+.plugin-button-alert {
+    background: #C40000;
+    background: linear-gradient(to bottom, #D10000 0%,#C40000 100%);
+    color: #fff !important;
+    border-color: #C40000 #D10000 #D10000;
+}
+    .button-alert a:hover, 
+    .plugin-button-alert:hover {
+        background: #C40000 !important;
+        background: linear-gradient(to bottom, #B50000 0%,#C40000 100%) !important;
+        border-color: #C40000 #B50000 #B50000 !important;
+    }
+
+.page-input-title, .page-input-title-img {margin-top: 0;}
+.plugin-container .plugin-info-header {cursor: pointer;}
+.plugin-container .plugin-info-header + .plugin-info-content {display: none;}
