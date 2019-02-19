@@ -90,7 +90,7 @@ if (!function_exists('gentlemandesigns_getPlugins')) {
                         }
                     }
 
-                    $output .= '<div class="users-container plugin-container" data-name="'.$plugin.'" data-type="'.$type.'">
+                    $output .= '<div class="users-container plugin-container" data-name="'.$plugin.'" data-type="'.$type.'" data-installed="'.( in_array($plugin, $active)? 'active': 'inactive' ).'">
                         <div class="message-content">
                             <div class="message-inner">
                                 '.$state.'
@@ -251,16 +251,23 @@ function plugin_enhancer_settings() {
 }
 
 if ( $_GET['plugin_reorder'] ) {
+    $list = json_decode($_POST['data']);
     if( $db->query("DELETE FROM `plugins`") ){
         $errors = array();
         $index = 1;
-        foreach ($_POST as $key => $value) {
-            if( !$db->query("INSERT INTO `plugins`(`id`,`name`,`type`) VALUES ('".$index."', '".$key."','".$value."')") ){
-                $error[] = $db->error;
+        try {
+            foreach ($list as $plugin) {
+                if( $plugin->active == 'active' ){
+                    if( !$db->query("INSERT INTO `plugins`(`id`,`name`,`type`, `priority`) VALUES ('".$index."', '".$plugin->name."','".$plugin->value."','".$index."')") ){
+                        $error[] = $db->error;
+                    }
+                    $index++;
+                }
             }
-            $index++;
+            var_dump($error);
+        } catch (\Throwable $th) {
+            var_dump($th->getMessage());
         }
-        var_dump($error);
     } else {
         echo $db->error;
     }
