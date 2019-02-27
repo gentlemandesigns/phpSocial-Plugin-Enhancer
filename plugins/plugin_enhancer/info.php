@@ -7,7 +7,7 @@ $name = 'Plugin Enhancer';
 $author = 'GentlemanDesigns';
 
 // Plugin URL
-$url = 'http://codecanyon.net/user/gentlemandesigns';
+$url = 'https://github.com/gentlemandesigns/phpSocial-Plugin-Enhancer';
 
 // Plugin Version
 $version = '1.0';
