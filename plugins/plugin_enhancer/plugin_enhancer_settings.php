@@ -3,9 +3,9 @@
 /* Originally in phpDolphin classes.php. Copied to have access to them. */
 if (!function_exists('gentlemandesigns_loadPlugins')) {
     function gentlemandesigns_loadPlugins($db) {
-        if($type == 0) {
-            $query = $db->query('SELECT * FROM `plugins` ORDER BY `id` DESC');
-        }
+
+        $query = $db->query('SELECT * FROM `plugins` ORDER BY `id` DESC');
+
         while($column = $query->fetch_assoc()) {
             $result[] = array('name' => $column['name'], 'type' => $column['type']);
         }
@@ -15,6 +15,8 @@ if (!function_exists('gentlemandesigns_loadPlugins')) {
 if (!function_exists('gentlemandesigns_getPlugins')) {
     function gentlemandesigns_getPlugins($db, $CONF, $lng) {
         global $CONF, $LNG, $db;
+
+        $output = '';
 
         $listplugins = gentlemandesigns_loadPlugins($db);
 
@@ -95,16 +97,16 @@ if (!function_exists('gentlemandesigns_getPlugins')) {
                             <div class="message-inner">
                                 '.$state.'
                                 <div class="message-avatar">
-                                    <a href="'.$url.'" target="_blank" title="'.$LNG['auhtor_title'].'">
+                                    <a href="'.$url.'" target="_blank" title="'.$LNG['author_title'].'">
                                         '.$image.'
                                     </a>
                                 </div>
                                 <div class="message-top">
                                     <div class="message-author" rel="loadpage">
-                                        <a href="'.$url.'" target="_blank" title="'.$LNG['auhtor_title'].'">'.$name.'</a> '.$version.'
+                                        <a href="'.$url.'" target="_blank" title="'.$LNG['author_title'].'">'.$name.'</a> '.$version.'
                                     </div>
                                     <div class="message-time">
-                                        '.$LNG['by'].': <a href="'.$url.'" target="_blank" title="'.$LNG['auhtor_title'].'">'.$author.'</a>
+                                        '.$LNG['by'].': <a href="'.$url.'" target="_blank" title="'.$LNG['author_title'].'">'.$author.'</a>
                                     </div>
                                 </div>
                             </div>
@@ -166,10 +168,10 @@ if (!function_exists('gentlemandesigns_deleteDir')) {
 function plugin_enhancer_settings() {
     global $CONF, $db, $LNG;
 
-    $output .= '</div>';
+    $output = '</div><div>';
 
     // Delete Plugin & Folder
-    if ( $_GET['dplugin'] && $_GET['plugin_type'] && $_GET['deleted'] == 'true' ) {
+    if ( isset($_GET['dplugin']) && $_GET['dplugin'] && isset($_GET['plugin_type']) && $_GET['plugin_type'] && isset($_GET['deleted']) && $_GET['deleted'] == 'true' ) {
         $dplugin = htmlentities($_GET['dplugin']);
         $plugin_type = htmlentities($_GET['plugin_type']);
         if( file_exists('./'.$CONF['plugin_path'].'/'.$dplugin.'/info.php') ){
@@ -187,7 +189,7 @@ function plugin_enhancer_settings() {
     }
 
     // Install Plugin
-    if ( $_POST['plugin_install_token'] ) {
+    if ( isset($_POST['plugin_install_token']) && $_POST['plugin_install_token'] ) {
         $target_dir = './'.$CONF['plugin_path'].'/';
         $target_file = $target_dir . basename($_FILES["plugin_package"]["name"]);
         $uploadOk = 1;
@@ -250,10 +252,10 @@ function plugin_enhancer_settings() {
     return $output;
 }
 
-if ( $_GET['plugin_reorder'] ) {
+if ( isset($_GET['plugin_reorder']) && $_GET['plugin_reorder'] && isset($_POST['data'])) {
     $list = json_decode($_POST['data']);
     if( $db->query("DELETE FROM `plugins`") ){
-        $errors = array();
+        $error = [];
         $index = 1;
         try {
             foreach ($list as $plugin) {

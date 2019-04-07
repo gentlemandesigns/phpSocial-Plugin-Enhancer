@@ -10,7 +10,7 @@ $author = 'GentlemanDesigns';
 $url = 'https://github.com/gentlemandesigns/phpSocial-Plugin-Enhancer';
 
 // Plugin Version
-$version = '1.0';
+$version = '1.0.1';
 
 // Plugin Type
 $type = '89';
